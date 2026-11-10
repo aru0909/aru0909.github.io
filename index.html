@@ -1,0 +1,20 @@
+---
+layout: with-sidebar
+---
+<div class="list-head">
+  <h1>최근 글</h1>
+  <a class="more" href="{{ '/categories/' | relative_url }}">카테고리 전체 보기 ›</a>
+</div>
+{% if site.posts.size == 0 %}<p class="muted empty">아직 글이 없습니다.</p>{% endif %}
+<ul class="cards">
+  {% assign pinned = site.posts | where: "pin", true %}
+  {% for post in pinned %}{% include post-card.html post=post %}{% endfor %}
+  {% assign shown = 0 %}
+  {% for post in site.posts %}
+    {% unless post.pin %}
+      {% if shown < 10 %}{% include post-card.html post=post %}{% endif %}
+      {% assign shown = shown | plus: 1 %}
+    {% endunless %}
+  {% endfor %}
+</ul>
+{% if site.posts.size > 10 %}<p class="all-link"><a href="{{ '/archive/' | relative_url }}">글 전체 보기 ›</a></p>{% endif %}

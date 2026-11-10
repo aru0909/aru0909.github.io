@@ -1,0 +1,15 @@
+---
+layout: default
+title: 글
+permalink: /archive/
+---
+<div class="narrow">
+<h1 class="page-title">글</h1>
+{% assign byYear = site.posts | group_by_exp: "p", "p.date | date: '%Y'" %}
+{% for y in byYear %}
+<h2 class="year">{{ y.name }}</h2>
+<ul class="post-list">
+  {% for post in y.items %}{% include post-row.html post=post %}{% endfor %}
+</ul>
+{% endfor %}
+</div>

@@ -1,0 +1,19 @@
+---
+layout: default
+title: 카테고리
+permalink: /categories/
+---
+<div class="narrow">
+<h1 class="page-title">카테고리</h1>
+{% for c in site.data.categories %}
+{%- assign posts = site.categories[c.slug] -%}
+<section class="cat-block">
+  <h2><a href="{{ '/categories/' | append: c.slug | append: '/' | relative_url }}">{{ c.name }}</a> <span class="muted">{{ posts | size }}</span></h2>
+  {% if posts and posts.size > 0 %}
+  <ul class="post-list">
+    {% for post in posts limit: 3 %}{% include post-row.html post=post hide_cat=true %}{% endfor %}
+  </ul>
+  {% endif %}
+</section>
+{% endfor %}
+</div>

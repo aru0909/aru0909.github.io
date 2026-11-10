@@ -1,0 +1,17 @@
+---
+layout: default
+title: 태그
+permalink: /tags/
+---
+<div class="narrow">
+<h1 class="page-title">태그</h1>
+{% assign tags = site.tags | sort %}
+{% for t in tags %}
+<section class="tag-block" id="{{ t[0] | slugify }}">
+  <h2>{{ t[0] }} <span class="muted">{{ t[1] | size }}</span></h2>
+  <ul class="post-list">
+    {% for post in t[1] %}{% include post-row.html post=post %}{% endfor %}
+  </ul>
+</section>
+{% endfor %}
+</div>
