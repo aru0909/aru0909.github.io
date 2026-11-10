@@ -1,0 +1,6 @@
+{%- assign cat = site.data.categories | where: "slug", include.post.categories.first | first -%}
+<li>
+  <time datetime="{{ include.post.date | date_to_xmlschema }}">{{ include.post.date | date: "%Y.%m.%d" }}</time>
+  <a href="{{ include.post.url | relative_url }}">{{ include.post.title }}</a>
+  {% if cat and include.hide_cat != true %}<span class="cat">{{ cat.name }}</span>{% endif %}
+</li>

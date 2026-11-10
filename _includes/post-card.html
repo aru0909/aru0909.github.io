@@ -1,0 +1,17 @@
+{%- assign p = include.post -%}
+{%- assign cat = site.data.categories | where: "slug", p.categories.first | first -%}
+<li>
+  <a class="card{% if p.image %} has-thumb{% endif %}" href="{{ p.url | relative_url }}">
+    <div class="card-text">
+      <h3>{{ p.title }}</h3>
+      {%- assign ex = p.description | default: p.content | strip_html | strip_newlines | strip | truncate: 140 -%}
+      <p class="card-excerpt">{{ ex }}</p>
+      <p class="card-meta">
+        <span>{% include icons/calendar.svg %}{{ p.date | date: "%Y.%m.%d" }}</span>
+        {% if cat %}<span>{% include icons/folder.svg %}{{ cat.name }}</span>{% endif %}
+        {% if p.pin %}<span class="pin">{% include icons/pin.svg %}</span>{% endif %}
+      </p>
+    </div>
+    {% if p.image %}<img class="card-thumb" src="{{ p.image | relative_url }}" alt="" loading="lazy">{% endif %}
+  </a>
+</li>

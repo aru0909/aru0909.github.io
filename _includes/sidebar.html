@@ -1,0 +1,43 @@
+<aside class="sidebar">
+  <section class="profile">
+    <a class="profile-head" href="{{ '/about/' | relative_url }}">
+      {% if site.author.avatar and site.author.avatar != "" %}
+      <img class="avatar" src="{{ site.author.avatar | relative_url }}" alt="">
+      {% else %}
+      <span class="avatar">{{ site.author.name | slice: 0, 1 | upcase }}</span>
+      {% endif %}
+      <span>
+        <strong>{{ site.author.name }}</strong>
+        <span class="muted">{{ site.author.bio }}</span>
+      </span>
+    </a>
+    {% if site.timeline %}
+    <ul class="timeline">
+      {% for t in site.timeline %}<li><span>{{ t.date }}</span>{{ t.text }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    <p class="profile-links">
+      {% if site.author.github %}<a href="https://github.com/{{ site.author.github }}" aria-label="GitHub">{% include icons/github.svg %}</a>{% endif %}
+      {% if site.author.email != "" %}<a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>{% endif %}
+    </p>
+  </section>
+
+  <section>
+    <h2>검색</h2>
+    <button class="search-box" type="button" data-search-open>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      검색어를 입력하세요
+    </button>
+  </section>
+
+  {% if site.tags.size > 0 %}
+  <section>
+    <h2>태그</h2>
+    {%- capture tag_str -%}{% for t in site.tags %}{{ t[1].size | plus: 1000 }}#{{ t[0] }}{% unless forloop.last %}|{% endunless %}{% endfor %}{%- endcapture -%}
+    {%- assign sorted_tags = tag_str | split: "|" | sort | reverse -%}
+    <p class="tag-list">
+      {% for item in sorted_tags limit: 12 %}{% assign name = item | split: "#" | last %}<a href="{{ '/tags/' | relative_url }}#{{ name | slugify }}">{{ name }}</a>{% endfor %}
+    </p>
+  </section>
+  {% endif %}
+</aside>
