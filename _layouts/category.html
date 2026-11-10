@@ -1,0 +1,17 @@
+---
+layout: with-sidebar
+---
+{%- assign cat = site.data.categories | where: "slug", page.category | first -%}
+{%- assign posts = site.categories[page.category] -%}
+<div class="list-head">
+  <h1>{{ cat.name }}</h1>
+  <a class="more" href="{{ '/categories/' | relative_url }}">카테고리 전체 보기 ›</a>
+</div>
+<p class="muted list-desc">{{ cat.desc }}</p>
+{% if posts and posts.size > 0 %}
+<ul class="cards">
+  {% for post in posts %}{% include post-card.html post=post %}{% endfor %}
+</ul>
+{% else %}
+<p class="muted empty">아직 글이 없습니다.</p>
+{% endif %}

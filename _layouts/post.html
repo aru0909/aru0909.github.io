@@ -1,0 +1,37 @@
+---
+layout: default
+---
+{%- assign cat = site.data.categories | where: "slug", page.categories.first | first -%}
+<article class="post narrow">
+  <header class="post-head">
+    <h1>{{ page.title }}</h1>
+    <p class="muted">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
+      {% if cat %} · <a href="{{ '/categories/' | append: cat.slug | append: '/' | relative_url }}">{{ cat.name }}</a>{% endif %}
+    </p>
+  </header>
+
+  <div class="post-body">
+    <div class="prose" id="post-content">{{ content }}</div>
+    {% if page.toc %}<nav class="toc" id="toc" aria-label="목차"></nav>{% endif %}
+  </div>
+
+  {% if page.tags.size > 0 %}
+  <p class="post-tags">{% for t in page.tags %}<a href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">#{{ t }}</a>{% endfor %}</p>
+  {% endif %}
+
+  <nav class="pager">
+    {% if page.previous %}<a href="{{ page.previous.url | relative_url }}">← {{ page.previous.title }}</a>{% else %}<span></span>{% endif %}
+    {% if page.next %}<a href="{{ page.next.url | relative_url }}">{{ page.next.title }} →</a>{% endif %}
+  </nav>
+
+  {% if site.giscus.enabled and page.comments %}
+  <section class="comments">
+    <script src="https://giscus.app/client.js"
+      data-repo="{{ site.giscus.repo }}" data-repo-id="{{ site.giscus.repo_id }}"
+      data-category="{{ site.giscus.category }}" data-category-id="{{ site.giscus.category_id }}"
+      data-mapping="pathname" data-reactions-enabled="0" data-input-position="bottom"
+      data-theme="preferred_color_scheme" data-lang="ko" crossorigin="anonymous" async></script>
+  </section>
+  {% endif %}
+</article>
