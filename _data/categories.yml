@@ -1,0 +1,20 @@
+# 카테고리 목록입니다. 적힌 순서대로 화면에 나옵니다.
+# 글을 쓸 때는 글 맨 위에 categories: [slug] 형식으로 적으세요.
+- slug: dev
+  name: 개발
+  desc: 만들어 본 것과 개발하다 해결한 문제
+- slug: ctf
+  name: CTF / Wargame
+  desc: 문제 풀이
+- slug: bugbounty
+  name: Bug Bounty
+  desc: 취약점 제보 기록
+- slug: tech
+  name: 블로그 / 기술문서
+  desc: 공부한 개념과 도구 정리
+- slug: paper
+  name: 논문 / 컨퍼런스
+  desc: 읽은 논문과 들은 발표 정리
+- slug: award
+  name: 공모전 / 자격증
+  desc: 대회 후기와 자격증 준비 기록

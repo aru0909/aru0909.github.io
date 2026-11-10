@@ -1,0 +1,73 @@
+---
+layout: default
+---
+{%- assign a = site.data.about -%}
+<article class="about narrow">
+  <header class="about-head">
+    {% if site.author.avatar and site.author.avatar != "" %}
+    <img class="avatar about-avatar" src="{{ site.author.avatar | relative_url }}" alt="">
+    {% else %}
+    <span class="avatar about-avatar">{{ site.author.name | slice: 0, 1 }}</span>
+    {% endif %}
+    <div>
+      <h1>{{ site.author.name }}</h1>
+      <p class="muted">{{ site.author.bio }}</p>
+    </div>
+  </header>
+
+  {% if a.intro %}<div class="about-intro">{{ a.intro | markdownify }}</div>{% endif %}
+
+  {% if a.timeline %}
+  <section class="about-section">
+    <h2 class="about-label">Timeline</h2>
+    <ol class="tl">
+      {% for t in a.timeline %}
+      <li class="tl-item{% if t.now %} is-now{% endif %}{% if t.award %} is-award{% endif %}">
+        <span class="tl-date">{{ t.date }}</span>
+        <h3>{{ t.title }}{% if t.award %} <span class="tl-badge">수상</span>{% endif %}</h3>
+        {% if t.org %}<p class="tl-org">{{ t.org }}</p>{% endif %}
+        {% if t.desc %}<p class="tl-desc">{{ t.desc }}</p>{% endif %}
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+  {% endif %}
+
+  {% if a.projects %}
+  <section class="about-section">
+    <h2 class="about-label">Projects</h2>
+    <div class="proj-list">
+      {% for p in a.projects %}
+      <div class="proj">
+        <div class="proj-top">
+          <h3>{{ p.title }}</h3>
+          <span class="proj-period">{{ p.period }}</span>
+        </div>
+        {% if p.note %}<p class="proj-note">{{ p.note }}</p>{% endif %}
+        {% if p.desc %}<p class="proj-desc">{{ p.desc }}</p>{% endif %}
+        {% if p.points %}<ul>{% for x in p.points %}<li>{{ x }}</li>{% endfor %}</ul>{% endif %}
+        {% if p.tags %}<p class="chips">{% for x in p.tags %}<span>{{ x }}</span>{% endfor %}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
+
+  {% if a.skills %}
+  <section class="about-section">
+    <h2 class="about-label">Skills</h2>
+    <p class="chips">{% for x in a.skills %}<span>{{ x }}</span>{% endfor %}</p>
+  </section>
+  {% endif %}
+
+  {% if a.links %}
+  <section class="about-section">
+    <h2 class="about-label">Contact</h2>
+    <dl class="contact">
+      {% for l in a.links %}<dt>{{ l.label }}</dt><dd><a href="{{ l.url }}">{{ l.text }}</a></dd>{% endfor %}
+    </dl>
+  </section>
+  {% endif %}
+
+  {% assign body = content | strip %}{% if body != "" %}<div class="prose">{{ content }}</div>{% endif %}
+</article>
