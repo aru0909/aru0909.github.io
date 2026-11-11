@@ -1,88 +1,139 @@
 # 소개 페이지 내용입니다. 이 파일만 고치면 소개 페이지가 바뀝니다.
 # 항목을 추가할 때는 기존 항목을 복사해서 들여쓰기를 그대로 맞춰 주세요.
 
-intro: |
-  이화여대 사이버보안학과 최지수입니다.
-  웹 보안이랑 DevSecOps 쪽을 공부하고 있고, 요즘은 RISC-V 메모리 보호 쪽 연구를 하고 있어요.
+name: "최지수 (Jisoo Choi)"
+headline: "Cybersecurity, Ewha Womans University"
+intro: "이화여자대학교 사이버보안학과에 재학하고 있는 최지수입니다."
 
-# 타임라인: 위에서부터 최신순. now: true 를 넣으면 진행 중 표시가 붙습니다.
-timeline:
-  - date: "2026.11 –"
-    title: "Frontier"
-    now: true
-  - date: "2026.09 –"
-    title: "RISC-V PMP 설정 오류 탐지 연구"
-    org: "이화여자대학교"
-    desc: "PMP 영역 중첩과 우선순위 때문에 생기는 권한 오류를 자동으로 찾는 연구."
-    now: true
-  - date: "2026"
-    title: "HSPACE x RAS LAB 1기"
-    org: "Model R&D팀"
-  - date: "2026"
-    title: "GDGoC Ewha AI Core Member"
-    org: "Google Developer Groups on Campus"
-  - date: "2026"
-    title: "ECC FW 프로젝트팀"
-    org: "Ewha Computer Club"
-    desc: "웹 프론트엔드."
-  - date: "2026"
-    title: "E-업그라운더 해커톤 최우수상"
-    org: "ASRA 팀"
-    desc: "코드와 Git 저장소의 시크릿 노출 탐지 서비스 기획."
-    award: true
-  - date: "2026"
-    title: "사이버 가디언즈 보안캠프 멘토"
-    org: "KISIA"
-    desc: "중학생 보안 실습 보조, 진로 멘토링."
-  - date: "2026"
-    title: "업스테이지 해커톤"
-    org: "물건 도깨비 팀"
-    desc: "영수증 기반 구매 물건 리마인드 서비스. n8n, OCR."
-  - date: "2026"
-    title: "스프린트 캠프"
-    org: "프로젝트 리드"
-    desc: "웹 보안 입문자용 실습 플랫폼 기획."
-  - date: "2026"
-    title: "사이버보안학과 학생회"
-    org: "이화여자대학교"
-    desc: "학과 행사 준비, 카드뉴스 제작."
-  - date: "2026"
-    title: "SW 봉사단"
-    desc: "학생 대상 코딩 실습 수업 보조."
-  - date: "2026.03 –"
-    title: "이화여자대학교 사이버보안학과"
-    now: true
-
-# 프로젝트 카드
-projects:
-  - title: "ASRA"
-    period: "2026"
-    note: "E-업그라운더 해커톤 최우수상"
-    desc: "코드나 Git 저장소에 섞여 들어간 API 키, 시크릿, DB 비밀번호를 찾아서 위험도별로 보여 주는 서비스"
-    points:
-      - "GitHub 저장소 연동 구조 설계"
-      - "GitHub Actions, pre-commit 훅으로 커밋 단계에서 잡는 방식 검토"
-      - "스타트업, SaaS 회사 대상 B2B 모델 구상"
-    tags: ["Secret Detection", "DevSecOps"]
-  - title: "RISC-V PMP 설정 오류 탐지"
-    period: "2026.09 – 진행 중"
-    note: "이화여자대학교"
-    desc: "PMP 영역이 겹치거나 우선순위가 꼬여서 권한이 의도랑 다르게 걸리는 경우를 자동으로 찾는 연구"
-    points:
-      - "Python으로 PMP 설정 분석기 구현"
-      - "영역 경계에서 R/W/X 접근 테스트 자동 생성"
-      - "Spike bare-metal에서 실제 결과랑 비교"
-    tags: ["RISC-V", "Python", "Hardware Security"]
-
-skills: ["Web Security", "DevSecOps", "Secret Detection", "Python"]
-
+# 소개 문장 아래 버튼
 links:
-  - label: "Email"
-    url: "mailto:aru0909@ewha.ac.kr"
-    text: "aru0909@ewha.ac.kr"
   - label: "GitHub"
     url: "https://github.com/aru0909"
-    text: "github.com/aru0909"
-  - label: "Portfolio"
-    url: "https://jisoo-choi-portfolio-aru0909-8174s-projects.vercel.app/"
-    text: "포트폴리오 사이트"
+    icon: github
+  - label: "Email"
+    url: "mailto:aru0909@ewha.ac.kr"
+    icon: mail
+
+# 01 About
+profile:
+  - label: "Name"
+    value: "최지수 (Jisoo Choi)"
+  - label: "University"
+    value: "Ewha Womans University / Seoul, Korea"
+  - label: "Major"
+    value: "Cybersecurity"
+  - label: "Email"
+    value: "aru0909@ewha.ac.kr"
+    url: "mailto:aru0909@ewha.ac.kr"
+
+# 02 Experience 탭
+periods:
+  - id: spring
+    label: "Spring"
+    range: "03–06"
+  - id: summer
+    label: "Summer"
+    range: "07–08"
+  - id: fall
+    label: "Fall"
+    range: "09–12"
+
+# 02 Experience 항목: 오래된 순서대로 적습니다.
+# period는 위 탭의 id(spring, summer, fall) 중 하나, now: true는 진행 중 표시입니다.
+experience:
+  - period: spring
+    date: "2026.03 – Present"
+    title: "Student Council"
+    org: "Dept. of Cybersecurity, Ewha Womans University"
+    desc: "학과 행사 준비, 카드뉴스 제작"
+    now: true
+  - period: spring
+    date: "2026.05"
+    title: "Upstage Hackathon"
+    org: "Team 물건 도깨비"
+    desc: "Receipt-based purchase reminder service, n8n · OCR"
+  - period: summer
+    date: "2026.07"
+    title: "E-Upgrounder Hackathon"
+    org: "Team ASRA"
+    award: "Grand Prize"
+  - period: summer
+    date: "2026.07"
+    title: "Sprint Camp"
+    org: "Project Lead"
+    desc: "웹 보안 입문자용 실습 플랫폼 기획"
+    # link: "https://..."     # 플랫폼 주소가 생기면 앞의 #을 지우고 주소를 넣으세요
+  - period: summer
+    date: "2026.07 –"
+    title: "Cyber Guardians Security Camp Mentor"
+    org: "KISIA"
+  - period: fall
+    date: "2026.09 –"
+    title: "GDGoC Ewha · AI Core Member"
+    org: "Google Developer Groups on Campus"
+    desc: "AI Study Content Creation"
+    now: true
+  - period: fall
+    date: "2026.09 –"
+    title: "ECC FW Project Team"
+    org: "Ewha Computer Club"
+    desc: "Web Frontend Study & Project"
+    now: true
+  - period: fall
+    date: "2026.10 –"
+    title: "HSPACE x RAS LAB 1기 · Model R&D Team"
+    org: "HSPACE"
+    desc: "LLM Study & AI Security Research"
+    now: true
+  - period: fall
+    date: "2026.11 –"
+    title: "HSPACE Knights Frontier"
+    org: "HSPACE"
+    now: true
+  - period: fall
+    date: "2026.12 –"
+    title: "RISC-V PMP Misconfiguration Detection Research"
+    org: "Ewha Womans University"
+  - period: fall
+    date: "2026"
+    title: "SW 봉사단"
+    desc: "초등학생 대상 코딩 교육 보조 강사"
+
+# 03 Clubs & Societies
+clubs:
+  - name: "GDGoC Ewha"
+    role: "AI Core Member"
+    org: "Google Developer Groups on Campus"
+    date: "2026.09 –"
+  - name: "ECC"
+    role: "FW Project Team (Web Frontend)"
+    org: "Ewha Computer Club"
+    date: "2026.09 –"
+  - name: "HSPACE x RAS LAB 1기"
+    role: "Model R&D Team"
+    org: "HSPACE"
+    date: "2026.10 –"
+
+# 04 Projects
+projects:
+  - title: "ASRA"
+    period: "2026.07"
+    note: "AI Secret Risk Analyzer · E-Upgrounder Hackathon Grand Prize"
+    desc: "Detects API keys, secrets and DB passwords leaked into code and Git repositories, and ranks them by risk"
+    points:
+      - "Designed the GitHub repository integration"
+      - "Explored commit-time detection with GitHub Actions and pre-commit hooks"
+      - "Planned a B2B model for startups and SaaS companies"
+    tags: ["Secret Detection", "Risk Scoring", "DevSecOps"]
+  - title: "RISC-V PMP Misconfiguration Detection"
+    period: "2026.12 –"
+    note: "Ewha Womans University"
+    desc: "Automatically finds permission mismatches caused by overlapping PMP regions and entry priority"
+    points:
+      - "PMP configuration analyzer in Python"
+      - "Auto-generated R/W/X access tests at region boundaries"
+      - "Validation on Spike bare-metal"
+    tags: ["RISC-V", "PMP", "Python", "Hardware Security"]
+
+# 05 Skills
+skills: ["AI Security", "Web Security", "DevSecOps", "Secret Detection", "Python"]

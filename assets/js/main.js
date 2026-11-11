@@ -113,4 +113,37 @@
     top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     showTop();
   }
+  // 소개 페이지: Experience 탭 전환
+  document.querySelectorAll('[data-tabs]').forEach(function (bar) {
+    var list = document.getElementById(bar.getAttribute('data-tabs'));
+    if (!list) return;
+    bar.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-tab]');
+      if (!btn) return;
+      var id = btn.getAttribute('data-tab');
+      bar.querySelectorAll('[data-tab]').forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle('is-active', on);
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+      });
+      list.querySelectorAll('[data-period]').forEach(function (li) {
+        li.hidden = !(id === 'all' || li.getAttribute('data-period') === id);
+      });
+      list.classList.remove('fade');
+      void list.offsetWidth;
+      list.classList.add('fade');
+    });
+  });
+
+  // 스크롤하면 섹션이 부드럽게 나타나는 효과
+  var reveals = document.querySelectorAll('.reveal');
+  if (reveals.length && 'IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    root.classList.add('js-reveal');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  }
 })();
