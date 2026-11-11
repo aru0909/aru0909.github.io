@@ -17,10 +17,7 @@ author:
 
 # 사이드바에 보여 줄 활동 이력입니다. 위에서부터 순서대로 나옵니다.
 timeline:
-  - date: "26.11. ~"
-    text: "HSPACE Knights Frontier"
-  - date: "26.03. ~"
-    text: "이화여자대학교 사이버보안학과"
+  - text: "이화여자대학교 사이버보안학과 재학"
 
 # 댓글 기능(선택): https://giscus.app 에서 값을 발급받아 채운 뒤 enabled를 true로 바꾸세요.
 giscus:

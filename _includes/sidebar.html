@@ -13,7 +13,7 @@
     </a>
     {% if site.timeline %}
     <ul class="timeline">
-      {% for t in site.timeline %}<li><span>{{ t.date }}</span>{{ t.text }}</li>{% endfor %}
+      {% for t in site.timeline %}<li>{% if t.date %}<span>{{ t.date }}</span>{% endif %}{{ t.text }}</li>{% endfor %}
     </ul>
     {% endif %}
     <p class="profile-links">
