@@ -10,32 +10,88 @@ layout: default
     <span class="avatar about-avatar">{{ site.author.name | slice: 0, 1 }}</span>
     {% endif %}
     <div>
-      <h1>{{ site.author.name }}</h1>
-      <p class="muted">{{ site.author.bio }}</p>
+      <h1>{{ a.name | default: site.author.name }}</h1>
+      {% if a.headline %}<p class="muted">{{ a.headline }}</p>{% endif %}
     </div>
   </header>
 
-  {% if a.intro %}<div class="about-intro">{{ a.intro | markdownify }}</div>{% endif %}
+  {% if a.intro %}<p class="about-intro">{{ a.intro }}</p>{% endif %}
 
-  {% if a.timeline %}
-  <section class="about-section">
-    <h2 class="about-label">Timeline</h2>
-    <ol class="tl">
-      {% for t in a.timeline %}
-      <li class="tl-item{% if t.now %} is-now{% endif %}{% if t.award %} is-award{% endif %}">
+  {% if a.links %}
+  <p class="about-links">
+    {% for l in a.links %}
+    <a class="about-btn" href="{{ l.url }}"{% unless l.url contains 'mailto:' %} target="_blank" rel="noopener"{% endunless %}>
+      {% if l.icon == "github" %}{% include icons/github.svg %}{% elsif l.icon == "mail" %}{% include icons/mail.svg %}{% endif %}
+      {{ l.label }}
+    </a>
+    {% endfor %}
+  </p>
+  {% endif %}
+
+  <nav class="toc-box reveal" aria-label="목차">
+    <p class="toc-box-title">Table of Contents</p>
+    <ol>
+      <li><a href="#about"><span>01</span>About</a></li>
+      <li><a href="#experience"><span>02</span>Experience</a></li>
+      <li><a href="#clubs"><span>03</span>Clubs &amp; Societies</a></li>
+      <li><a href="#projects"><span>04</span>Projects</a></li>
+      <li><a href="#skills"><span>05</span>Skills</a></li>
+    </ol>
+  </nav>
+
+  <section class="about-section reveal" id="about">
+    <h2 class="sec-title"><span>01</span>About</h2>
+    <dl class="info">
+      {% for r in a.profile %}
+      <dt>{{ r.label }}</dt>
+      <dd>{% if r.url %}<a href="{{ r.url }}">{{ r.value }}</a>{% else %}{{ r.value }}{% endif %}</dd>
+      {% endfor %}
+    </dl>
+  </section>
+
+  <section class="about-section reveal" id="experience">
+    <h2 class="sec-title"><span>02</span>Experience</h2>
+    <div class="tabs" role="tablist" data-tabs="exp-list">
+      <button class="tab is-active" type="button" role="tab" aria-selected="true" data-tab="all">All</button>
+      {% for p in a.periods %}
+      <button class="tab" type="button" role="tab" aria-selected="false" data-tab="{{ p.id }}">{{ p.label }}<span>{{ p.range }}</span></button>
+      {% endfor %}
+    </div>
+    <ol class="tl" id="exp-list">
+      {% assign prev = "" %}
+      {% for t in a.experience %}
+      {% if t.period != prev %}
+      {% assign pp = a.periods | where: "id", t.period | first %}
+      <li class="tl-group" data-period="{{ t.period }}">{{ pp.label }} <span>{{ pp.range }}</span></li>
+      {% assign prev = t.period %}
+      {% endif %}
+      <li class="tl-item{% if t.now %} is-now{% endif %}" data-period="{{ t.period }}">
         <span class="tl-date">{{ t.date }}</span>
-        <h3>{{ t.title }}{% if t.award %} <span class="tl-badge">수상</span>{% endif %}</h3>
+        <h3>{{ t.title }}{% if t.award %} <span class="tl-badge">{{ t.award }}</span>{% endif %}</h3>
         {% if t.org %}<p class="tl-org">{{ t.org }}</p>{% endif %}
         {% if t.desc %}<p class="tl-desc">{{ t.desc }}</p>{% endif %}
+        {% if t.link %}<p class="tl-link"><a href="{{ t.link }}" target="_blank" rel="noopener">{{ t.link_label | default: "Visit" }} ↗</a></p>{% endif %}
       </li>
       {% endfor %}
     </ol>
   </section>
-  {% endif %}
 
-  {% if a.projects %}
-  <section class="about-section">
-    <h2 class="about-label">Projects</h2>
+  <section class="about-section reveal" id="clubs">
+    <h2 class="sec-title"><span>03</span>Clubs &amp; Societies</h2>
+    <div class="club-grid">
+      {% for c in a.clubs %}
+      <div class="club">
+        <span class="tl-date">{{ c.date }}</span>
+        <h3>{{ c.name }}</h3>
+        <p class="club-role">{{ c.role }}</p>
+        {% if c.org %}<p class="tl-org">{{ c.org }}</p>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="about-section reveal" id="projects">
+    <h2 class="sec-title"><span>04</span>Projects</h2>
     <div class="proj-list">
       {% for p in a.projects %}
       <div class="proj">
@@ -51,23 +107,11 @@ layout: default
       {% endfor %}
     </div>
   </section>
-  {% endif %}
 
-  {% if a.skills %}
-  <section class="about-section">
-    <h2 class="about-label">Skills</h2>
+  <section class="about-section reveal" id="skills">
+    <h2 class="sec-title"><span>05</span>Skills</h2>
     <p class="chips">{% for x in a.skills %}<span>{{ x }}</span>{% endfor %}</p>
   </section>
-  {% endif %}
-
-  {% if a.links %}
-  <section class="about-section">
-    <h2 class="about-label">Contact</h2>
-    <dl class="contact">
-      {% for l in a.links %}<dt>{{ l.label }}</dt><dd><a href="{{ l.url }}">{{ l.text }}</a></dd>{% endfor %}
-    </dl>
-  </section>
-  {% endif %}
 
   {% assign body = content | strip %}{% if body != "" %}<div class="prose">{{ content }}</div>{% endif %}
 </article>
