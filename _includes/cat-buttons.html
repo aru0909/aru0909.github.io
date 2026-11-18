@@ -1,0 +1,8 @@
+<nav class="cat-btns" aria-label="카테고리">
+  {% for c in site.data.categories %}
+  <a class="cat-btn{% if c.slug == include.active %} is-active{% endif %}" href="{{ '/categories/' | append: c.slug | append: '/' | relative_url }}"{% if c.slug == include.active %} aria-current="page"{% endif %}>
+    <span>{{ c.name }}</span>
+    <em>{{ site.categories[c.slug] | size }}</em>
+  </a>
+  {% endfor %}
+</nav>

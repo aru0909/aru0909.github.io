@@ -4,14 +4,18 @@ layout: with-sidebar
 {%- assign cat = site.data.categories | where: "slug", page.category | first -%}
 {%- assign posts = site.categories[page.category] -%}
 <div class="list-head">
-  <h1>{{ cat.name }}</h1>
-  <a class="more" href="{{ '/categories/' | relative_url }}">카테고리 전체 보기 ›</a>
+  <h1>카테고리</h1>
 </div>
-<p class="muted list-desc">{{ cat.desc }}</p>
+{% include cat-buttons.html active=page.category %}
+
+<div class="list-head list-head-gap">
+  <h2>{{ cat.name }} <span class="muted count">{{ posts | size }}</span></h2>
+  <a class="more" href="{{ '/' | relative_url }}">홈으로 ›</a>
+</div>
 {% if posts and posts.size > 0 %}
-<ul class="cards">
-  {% for post in posts %}{% include post-card.html post=post %}{% endfor %}
+<ul class="post-list">
+  {% for post in posts %}{% include post-row.html post=post hide_cat=true %}{% endfor %}
 </ul>
 {% else %}
-<p class="muted empty">아직 글이 없습니다.</p>
+<p class="muted empty">아직 이 카테고리에 올린 글이 없습니다.</p>
 {% endif %}
