@@ -7,18 +7,11 @@ layout: with-sidebar
 {% include cat-buttons.html %}
 
 <div class="list-head list-head-gap">
-  <h2>최근 글</h2>
-  {% if site.posts.size > 0 %}<a class="more" href="{{ '/archive/' | relative_url }}">전체 글 보기 ›</a>{% endif %}
+  <h2>전체 글 <span class="muted count">{{ site.posts | size }}</span></h2>
 </div>
 {% if site.posts.size == 0 %}<p class="muted empty">아직 글이 없습니다.</p>{% endif %}
 <ul class="post-list">
   {% assign pinned = site.posts | where: "pin", true %}
   {% for post in pinned %}{% include post-row.html post=post %}{% endfor %}
-  {% assign shown = 0 %}
-  {% for post in site.posts %}
-    {% unless post.pin %}
-      {% if shown < 15 %}{% include post-row.html post=post %}{% endif %}
-      {% assign shown = shown | plus: 1 %}
-    {% endunless %}
-  {% endfor %}
+  {% for post in site.posts %}{% unless post.pin %}{% include post-row.html post=post %}{% endunless %}{% endfor %}
 </ul>
