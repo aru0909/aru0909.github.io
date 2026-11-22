@@ -72,6 +72,14 @@ a:hover { color: var(--link); }
 .row-pin { display: inline-flex; margin-right: 8px; vertical-align: -1px; color: var(--point); }
 .row-pin svg { width: 14px; height: 14px; }
 
+/* 방문자 수 */
+.visit-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.visit-stats > div { padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; }
+.visit-label { display: block; font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.visit-stats strong { display: block; margin-top: 2px; font-size: 20px; font-variant-numeric: tabular-nums; }
+.row-views { order: 2; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: flex-end; gap: 5px; min-width: 58px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+.row-views[hidden], .post-views[hidden] { display: none; }
+
 /* 사이드바 최근 글 */
 .side-recent { list-style: none; margin: 0; padding: 0; }
 .side-recent li { display: flex; align-items: baseline; gap: 10px; padding: 6px 0; }
@@ -237,7 +245,7 @@ a:hover { color: var(--link); }
 @media (max-width: 900px) {
   .with-sidebar { grid-template-columns: 1fr; gap: 32px; }
   .sidebar { position: static; }
-  .sidebar section:not(.profile) { display: none; }
+  .sidebar section:not(.profile):not(.visitors) { display: none; }
   .profile { padding-bottom: 20px !important; border-bottom: 1px solid var(--line); }
 }
 @media (max-width: 600px) {
@@ -355,6 +363,7 @@ a:hover { color: var(--link); }
   .row-title { order: -1; flex-basis: 100%; font-size: 16px; }
   .row time { width: auto; }
   .row-cat { padding: 1px 9px; font-size: 12px; }
+  .row-views { min-width: 0; }
   .cat-btns { grid-template-columns: repeat(2, 1fr); }
   .post-head h1 { font-size: 25px; }
 }

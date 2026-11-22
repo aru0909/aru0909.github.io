@@ -105,6 +105,29 @@
     });
   }
 
+  // 방문자 수 (GoatCounter)
+  var gc = window.GOATCOUNTER_CODE;
+  var viewEls = document.querySelectorAll('[data-views]');
+  if (gc && viewEls.length && window.fetch) {
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var d = new Date();
+    var today = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    viewEls.forEach(function (el) {
+      var path = el.getAttribute('data-views');
+      var url = 'https://' + gc + '.goatcounter.com/counter/' + encodeURIComponent(path) + '.json';
+      if (el.getAttribute('data-range') === 'today') url += '?start=' + today + '&end=' + today;
+      fetch(url).then(function (r) {
+        if (r.status === 404) return { count: '0' };   // 아직 방문 기록이 없는 글
+        return r.ok ? r.json() : null;
+      }).then(function (data) {
+        if (!data) return;
+        var target = el.querySelector('.n') || el;
+        target.textContent = data.count || '0';
+        el.hidden = false;
+      }).catch(function () {});
+    });
+  }
+
   // 맨 위로 버튼
   var top = document.getElementById('to-top');
   if (top) {

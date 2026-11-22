@@ -19,6 +19,10 @@ author:
 timeline:
   - text: "이화여자대학교 사이버보안학과 재학"
 
+# 방문자 통계: GoatCounter(https://www.goatcounter.com)에서 가입할 때 정한 Code를 적습니다.
+# 비워 두면 통계와 방문자 수 표시가 모두 꺼집니다.
+goatcounter: "aru0909"
+
 # 댓글 기능(선택): https://giscus.app 에서 값을 발급받아 채운 뒤 enabled를 true로 바꾸세요.
 giscus:
   enabled: false

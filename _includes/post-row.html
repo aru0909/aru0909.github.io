@@ -4,6 +4,7 @@
   <a href="{{ p.url | relative_url }}">
     <time datetime="{{ p.date | date_to_xmlschema }}">{{ p.date | date: "%y.%m.%d" }}</time>
     <span class="row-title">{% if p.pin %}<span class="row-pin">{% include icons/pin.svg %}</span>{% endif %}{{ p.title }}</span>
+    {% if site.goatcounter %}<span class="row-views" data-views="{{ p.url | relative_url }}" hidden>{% include icons/eye.svg %}<span class="n"></span></span>{% endif %}
     {% if cat and include.hide_cat != true %}<span class="row-cat">{{ cat.name }}</span>{% endif %}
   </a>
 </li>

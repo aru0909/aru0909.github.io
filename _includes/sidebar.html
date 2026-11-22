@@ -22,6 +22,16 @@
     </p>
   </section>
 
+  {% if site.goatcounter %}
+  <section class="visitors">
+    <h2>방문자</h2>
+    <div class="visit-stats">
+      <div><span class="visit-label">Today</span><strong data-views="TOTAL" data-range="today">–</strong></div>
+      <div><span class="visit-label">Total</span><strong data-views="TOTAL">–</strong></div>
+    </div>
+  </section>
+  {% endif %}
+
   <section>
     <h2>검색</h2>
     <button class="search-box" type="button" data-search-open>

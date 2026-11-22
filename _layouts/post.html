@@ -8,6 +8,7 @@ layout: default
     <p class="muted">
       <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y.%m.%d" }}</time>
       {% if cat %} · <a href="{{ '/categories/' | append: cat.slug | append: '/' | relative_url }}">{{ cat.name }}</a>{% endif %}
+      {% if site.goatcounter %}<span class="post-views" data-views="{{ page.url | relative_url }}" hidden> · 조회 <span class="n"></span></span>{% endif %}
     </p>
   </header>
 
