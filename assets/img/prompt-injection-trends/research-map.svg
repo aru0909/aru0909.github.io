@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 750" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="750" viewBox="0 0 1040 750" role="img" aria-labelledby="title desc">
 <title id="title">StruQ를 중심으로 읽는 다섯 논문의 연결</title>
 <desc id="desc">2022 PromptInject와 2024 Open Prompt Injection에서 StruQ로, StruQ에서 학습 목표를 확장한 SecAlign과 탐지 및 정제를 비교한 Rennervate로 이어진다. 화살표는 실제 인용과 방법 또는 평가 관계이며 공동 저자 관계를 뜻하지 않는다.</desc>
 <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#63748b"/></marker></defs>
