@@ -45,7 +45,7 @@ NDSS 2026에 발표된 *Attention is All You Need to Defend Against Indirect Pro
 
 특히 LLM의 전체 입력을 위험하거나 안전하다고 분류하는 데 그치지 않고, **악성 지시문에 해당하는 토큰을 찾아 제거한다는 점**이 인상적이었다.
 
-이 글에서는 논문의 문제의식부터 핵심 아이디어와 실험 결과를 살펴보고, 한계점과 앞으로 직접 연구해 보고 싶은 방향까지 정리해 보려고 한다.
+이 글에서는 논문의 문제의식부터 핵심 아이디어와 실험 결과를 살펴보고, 한계점과 앞으로 직접 연구해 보고 싶은 방향까지 정리해 보았다. 
 
 ## 2. 배경: LLM은 왜 프롬프트 인젝션에 취약할까?
 
@@ -71,13 +71,13 @@ Prompt Injection은 공격자가 LLM에 악의적인 지시를 주입해 원래 
 
 이것이 간접 프롬프트 인젝션의 핵심이다.
 
-문제는 단순히 악성 문자열을 인식하는 것보다 복잡하다. 정상적인 문서에도 명령형 문장이 포함될 수 있으며, 공격자는 평범한 문장이나 문서 형식을 이용해 지시문을 숨길 수 있기 때문이다.
-
+문제는 단순히 악성 문자열을 인식하는 것보다 복잡하다. 
+정상적인 문서에도 명령형 문장이 포함될 수 있으며, 공격자는 평범한 문장이나 문서 형식을 이용해 지시문을 숨길 수 있기 때문이다.
 
 
 [![외부 웹페이지의 악성 지시가 응답을 바꾸는 IPI 공격과 Rennervate로 정제한 결과의 비교](/assets/img/rennervate-ndss-2026/figure-1-attack-defense.png)](/assets/img/rennervate-ndss-2026/figure-1-attack-defense.png)
 
-*그림 1. 외부 데이터가 명령으로 해석되는 공격과, 악성 구간을 정제하는 방어를 비교한다. 출처: Zhong et al., NDSS 2026, [원문 Figure 1, p. 1](https://www.ndss-symposium.org/wp-content/uploads/2026-f394-paper.pdf#page=1). 원저작권자에게 저작권이 있으며, 리뷰·비평을 위해 해당 그림만 인용했다. 원본의 색상·내용은 유지하고 주변 여백만 잘랐다.*
+*그림 1. 외부 데이터가 명령으로 해석되는 공격과, 악성 구간을 정제하는 방어를 비교한다. 출처: Zhong et al., NDSS 2026, [원문 Figure 1, p. 1](https://www.ndss-symposium.org/wp-content/uploads/2026-f394-paper.pdf#page=1).
 
 ### 2.2. 왜 중요한 문제인가?
 
@@ -132,7 +132,7 @@ Rennervate는 이러한 Attention 가중치에 주목한다.
 
 다만 Attention 값 하나가 높다고 해서 해당 토큰을 악성으로 판단하는 것은 아니다. 논문에서는 여러 Attention Head와 응답 토큰에 걸친 복합적인 특징을 학습해 분류한다.
 
-또한 Attention이 모델의 판단 이유를 완벽하게 설명한다는 의미도 아니다. 이 연구에서는 Attention을 **공격을 구별하는 데 유용한 내부 특징(feature)**으로 활용한다는 점이 중요하다.
+또한 Attention이 모델의 판단 이유를 완벽하게 설명한다는 의미는 아니지만, 이 연구에서는 Attention을 **공격을 구별하는 데 유용한 내부 특징(feature)**으로 활용한다는 점이 중요하다.
 
 ### 3.2. 문서 단위 탐지가 아니라 토큰 단위 탐지
 
@@ -163,7 +163,7 @@ Rennervate는 입력을 구성하는 각 토큰에 대해 악성 여부를 예�
 
 [![LLM Attention 특징에서 토큰 탐지기, 문서 공격 식별기, 악성 토큰 정제기로 이어지는 Rennervate 구조](/assets/img/rennervate-ndss-2026/figure-2-system.png)](/assets/img/rennervate-ndss-2026/figure-2-system.png)
 
-*그림 2. Attention 특징을 입력으로 토큰 탐지·문서 식별·정제를 수행하는 전체 시스템. 출처: Zhong et al., NDSS 2026, [원문 Figure 2, p. 5](https://www.ndss-symposium.org/wp-content/uploads/2026-f394-paper.pdf#page=5). 원저작권자에게 저작권이 있으며, 리뷰·비평을 위해 해당 그림만 인용했다. 원본의 색상·내용은 유지하고 주변 여백만 잘랐다.*
+*그림 2. Attention 특징을 입력으로 토큰 탐지·문서 식별·정제를 수행하는 전체 시스템. 출처: Zhong et al., NDSS 2026, [원문 Figure 2, p. 5](https://www.ndss-symposium.org/wp-content/uploads/2026-f394-paper.pdf#page=5). 
 
 
 
@@ -207,7 +207,7 @@ Rennervate는 입력을 구성하는 각 토큰에 대해 악성 여부를 예�
 
 [![응답 토큰별 pooling과 Attention head별 pooling, residual block으로 구성된 토큰 탐지기](/assets/img/rennervate-ndss-2026/figure-3-detector.png)](/assets/img/rennervate-ndss-2026/figure-3-detector.png)
 
-*그림 3. 응답 토큰별 정보를 먼저 통합하고, Attention Head별 정보를 통합하는 토큰 탐지기. (a)는 pooling의 내부 구조, (b)는 전체 탐지기다. 출처: Zhong et al., NDSS 2026, [원문 Figure 3, p. 6](https://www.ndss-symposium.org/wp-content/uploads/2026-f394-paper.pdf#page=6). 원저작권자에게 저작권이 있으며, 리뷰·비평을 위해 해당 그림만 인용했다. 원본의 색상·내용은 유지하고 주변 여백만 잘랐다.*
+*그림 3. 응답 토큰별 정보를 먼저 통합하고, Attention Head별 정보를 통합하는 토큰 탐지기. (a)는 pooling의 내부 구조, (b)는 전체 탐지기다. 출처: Zhong et al., NDSS 2026, [원문 Figure 3, p. 6](https://www.ndss-symposium.org/wp-content/uploads/2026-f394-paper.pdf#page=6). 
 
 ### 4.2. Injection Identifier: 문서 전체의 공격 여부 판단
 
