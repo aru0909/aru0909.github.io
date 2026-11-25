@@ -14,13 +14,13 @@ toc: true
 
 최근 BPE, Self-Attention, Transformer, GPT-2를 공부하면서 모델이 입력을 토큰으로 바꾸고, 앞선 문맥을 참조하며 다음 토큰을 생성하는 과정을 살펴보고 있다. 이어 [NDSS 2026 Rennervate 리뷰](/posts/2026/11/rennervate-ndss-2026-prompt-injection/)에서는 Attention 정보를 이용해 간접 프롬프트 인젝션을 탐지하는 방법을 읽었다.
 
-이번에는 특정 방어 기법을 이해하는 데서 한 걸음 더 나아가고 싶었다. **공격 사례를 발견한 연구가 어떻게 공통 평가로 이어졌고, 모델이 지시의 경계를 학습하도록 만드는 연구와 공격 위치를 찾아 정제하는 연구로 갈라졌는가?** 이 질문을 중심으로 다섯 편을 골랐다.
+이번에는 특정 방어 기법을 이해하는 데서 한 걸음 더 나아가고 싶어 **공격 사례를 발견한 연구가 어떻게 공통 평가로 이어졌고, 모델이 지시의 경계를 학습하도록 만드는 연구와 공격 위치를 찾아 정제하는 연구로 갈라졌는가?** 이 질문을 중심으로 다섯 편을 골랐다.
 
-중심 논문은 **USENIX Security 2025의 StruQ**다. 학습 기반 방어라는 아이디어와 실제로 남아 있는 실패를 함께 보여주므로, 이후 연구가 무엇을 바꾸었는지 비교하기에 적합하다. 이 글은 Frontier 미션 #17의 선행 2편·중심 1편·후속 2편을 분석한 기록이다. 실험 수치는 저자들의 보고이며, 직접 재현한 결과는 아니다.
+중심 논문은 **USENIX Security 2025의 StruQ**다. 학습 기반 방어라는 아이디어와 실제로 남아 있는 실패를 함께 보여주므로, 이후 연구가 무엇을 바꾸었는지 비교하기에 적합하다 생각하여 중심논문으로 고르게 되었다. 
 
-## 2. 먼저 검증한 것: 다섯 편의 연도와 연결 관계
+## 2. 다섯 편의 연도와 연결 관계
 
-### 2.1. 학회 연도와 최초 공개일을 구별하기
+### 2.1. 학회 연도와 최초 공개일 비교
 
 | 역할 | 논문·저자 | 발표 학회 | arXiv 최초 공개일 | 확인할 원문 |
 |---|---|---|---|---|
@@ -30,15 +30,11 @@ toc: true
 | 후속 1 | *SecAlign: Defending Against Prompt Injection with Preference Optimization* — Sizhe Chen 외 | **ACM CCS 2025**, pp. 2833–2847, 학회 10월 13–17일 | 2024-10-07 | [ACM DOI](https://doi.org/10.1145/3719027.3744836) · [저자 공개본 v3](https://arxiv.org/html/2410.05451v3) · [이력](https://arxiv.org/abs/2410.05451) |
 | 후속 2 | *Attention is All You Need to Defend Against Indirect Prompt Injection Attacks in LLMs* — Yinan Zhong 외, **Rennervate** | **NDSS 2026**, 2월 23–27일 | 2025-12-09 | [공식 PDF](https://www.ndss-symposium.org/wp-content/uploads/2026-f394-paper.pdf) · [DOI](https://doi.org/10.14722/ndss.2026.240394) · [이력](https://arxiv.org/abs/2512.08417) |
 
-최초 공개 순서는 **2022-11 → 2023-10 → 2024-02 → 2024-10 → 2025-12**다. StruQ와 SecAlign은 모두 학회 연도가 2025년이지만, 공개일과 학회 일정 모두 StruQ가 앞선다. 학회 날짜는 발표 행사 기간이며, 논문집의 온라인 발행일과 같다고 가정하지 않았다. SecAlign의 CCS 수록 여부는 [저자의 연구 목록](https://sizhe-chen.github.io/publications.html)에서도 확인했다.
+최초 공개 순서는 **2022-11 → 2023-10 → 2024-02 → 2024-10 → 2025-12**다. StruQ와 SecAlign은 모두 학회 연도가 2025년이지만, 공개일과 학회 일정 모두 StruQ가 앞선다.
 
-선행 1은 워크숍 논문이다. NeurIPS 본회의나 4대 보안 학회 논문으로 분류하지 않는다. 미션의 중심 논문 조건은 StruQ가 충족하며, 나머지는 실제 연구 연결을 기준으로 선정했다.
+선행 1은 워크숍 논문이다. NeurIPS 본회의나 4대 보안 학회 논문으로 분류되지는 않는다. 미션의 중심 논문 조건은 StruQ가 충족하며, 나머지는 실제 연구 연결을 기준으로 선정하였다.
 
-### 2.2. 제목이 달라도 같은 연구인지 확인하기
-
-초기 공개본의 제목 때문에 관계를 놓치기 쉽다. Open-Prompt-Injection 연구는 StruQ v1에서 **“Prompt Injection Attacks and Defenses in LLM-Integrated Applications”**라는 이름으로 인용되지만, arXiv 식별자는 동일한 `2310.12815`다. SecAlign v1의 제목도 **“Aligning LLMs to Be Robust Against Prompt Injection”**이었다. 이 글에서는 학회에 수록된 제목을 쓰되, 초기 인용은 식별자로 대조했다. [StruQ v1 참고문헌](https://arxiv.org/html/2402.06363v1) · [SecAlign v1](https://arxiv.org/html/2410.05451v1)
-
-### 2.3. 무엇을 근거로 선행·후속이라고 부르는가?
+### 2.2. 무엇을 근거로 선행·후속이라고 부르는가?
 
 | 연결 | 원문에서 확인한 위치 | 실제 연결의 의미 |
 |---|---|---|
@@ -47,7 +43,7 @@ toc: true
 | StruQ → SecAlign | SecAlign v3 **§3.1, Eq. (1), §4.2**; v1에도 StruQ 비교 존재 | 학습 목표의 부족을 지적하고 공개 코드로 재현해 비교한 직접 확장 |
 | StruQ → Rennervate | Rennervate **[18], §III-B, §V-A4, Table III, §VII** | 재학습 방어를 관련 연구와 실험 기준선으로 삼고, 다른 방어 경로 제안 |
 
-**SecAlign은 StruQ의 학습 목표를 확장한 후속 연구**, **Rennervate는 StruQ를 직접 비교·비판하면서 다른 접근을 제안한 후속 관련 연구**로 구별한다. Rennervate가 StruQ 코드나 학습법을 계승한 시스템이라는 뜻은 아니다. 또한 Open-Prompt-Injection의 2024년 최종본은 StruQ 프리프린트도 인용한다. 최종본끼리의 상호 인용만으로 일방적인 영향 관계를 추측하지 않고, 위 공개 이력과 StruQ v1의 인용을 함께 확인했다.
+**SecAlign은 StruQ의 학습 목표를 확장한 후속 연구**, **Rennervate는 StruQ를 직접 비교·비판하면서 다른 접근을 제안한 후속 관련 연구**로 구별한다. 또한 Open-Prompt-Injection의 2024년 최종본은 StruQ 프리프린트도 인용한다.
 
 [![실제 인용 및 평가 관계로 연결한 다섯 논문의 연구 흐름](/assets/img/prompt-injection-trends/research-map.svg)](/assets/img/prompt-injection-trends/research-map.svg)
 
