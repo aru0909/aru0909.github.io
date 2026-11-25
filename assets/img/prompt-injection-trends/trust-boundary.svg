@@ -23,5 +23,4 @@
 <rect x="42" y="466" width="953" height="98" rx="14" fill="#fff" stroke="#c8d3e1"/>
 <text x="64" y="499" font-size="18">StruQ: 데이터 안 지시를 따르지 않도록 학습 · SecAlign: 정상/공격 응답의 선호 차이를 학습</text>
 <text x="64" y="536" font-size="18">Rennervate: 입력에서 악성 토큰을 찾아 정제 · 위 세 방법의 결합 성능을 입증한 도식은 아님</text>
-<text x="42" y="601" font-size="14" fill="#52637c">설명을 위한 직접 제작 예시 · 원문 그림 복제 없음 · 최지수 · CC BY 4.0</text>
 </g></svg>
