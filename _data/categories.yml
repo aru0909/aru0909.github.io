@@ -10,10 +10,10 @@
   name: Bug Bounty
   desc: 취약점 제보 기록
 - slug: tech
-  name: 블로그 / 기술문서
+  name: 블로그/기술문서/리서치
   desc: 공부한 개념과 도구 정리
 - slug: paper
-  name: 논문 / 컨퍼런스
+  name: 논문/컨퍼런스
   desc: 읽은 논문과 들은 발표 정리
 - slug: award
   name: 공모전 / 자격증

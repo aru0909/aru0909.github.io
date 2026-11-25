@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 750" role="img" aria-labelledby="title desc">
+<title id="title">StruQ를 중심으로 읽는 다섯 논문의 연결</title>
+<desc id="desc">2022 PromptInject와 2024 Open Prompt Injection에서 StruQ로, StruQ에서 학습 목표를 확장한 SecAlign과 탐지 및 정제를 비교한 Rennervate로 이어진다. 화살표는 실제 인용과 방법 또는 평가 관계이며 공동 저자 관계를 뜻하지 않는다.</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#63748b"/></marker></defs>
+<rect width="1040" height="750" rx="24" fill="#f4f7fb"/>
+<g font-family="Pretendard,Malgun Gothic,Arial,sans-serif" fill="#172b46">
+<text x="44" y="52" font-size="27" font-weight="700">Prompt injection: 공격 발견에서 경계 학습과 정제로</text>
+<text x="44" y="84" font-size="16" fill="#52637c">학회 연도 기준 · 최초 공개일과 실제 인용 관계는 본문 표 참조</text>
+<rect x="44" y="120" width="450" height="134" rx="16" fill="#fff" stroke="#c8d3e1"/>
+<text x="66" y="151" font-size="16" fill="#52637c">선행 1 · NeurIPS ML Safety Workshop 2022</text>
+<text x="66" y="184" font-size="21" font-weight="700">Ignore Previous Prompt / PromptInject</text>
+<text x="66" y="218" font-size="18">목표 탈취와 프롬프트 유출의 공격 사례</text>
+<rect x="546" y="120" width="450" height="134" rx="16" fill="#fff" stroke="#c8d3e1"/>
+<text x="568" y="151" font-size="16" fill="#52637c">선행 2 · USENIX Security 2024</text>
+<text x="568" y="184" font-size="23" font-weight="700">Open-Prompt-Injection</text>
+<text x="568" y="218" font-size="18">공격 정의 · 공통 벤치마크 · 방어 비교</text>
+<path d="M269 254 L400 330" fill="none" stroke="#63748b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M771 254 L640 330" fill="none" stroke="#63748b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="246" y="330" width="548" height="135" rx="16" fill="#183a61"/>
+<text x="270" y="363" font-size="17" fill="#d7e6fb">중심 · USENIX Security 2025</text>
+<text x="270" y="398" font-size="25" font-weight="700" fill="#fff">StruQ: 지시와 데이터를 분리해 학습</text>
+<text x="270" y="433" font-size="18" fill="#e0ebf9">Secure front-end + Structured instruction tuning</text>
+<path d="M400 465 L269 552" fill="none" stroke="#63748b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M640 465 L771 552" fill="none" stroke="#63748b" stroke-width="2.5" marker-end="url(#arrow)"/>
+<text x="75" y="527" font-size="17" fill="#52637c">학습 목표 확장 · 재현 비교</text>
+<text x="744" y="527" font-size="17" fill="#52637c">다른 접근 · 직접 비교 평가</text>
+<rect x="44" y="552" width="450" height="126" rx="16" fill="#fff" stroke="#c8d3e1"/>
+<text x="66" y="584" font-size="16" fill="#52637c">후속 1 · ACM CCS 2025</text>
+<text x="66" y="618" font-size="25" font-weight="700">SecAlign</text>
+<text x="66" y="650" font-size="18">정상 응답 선호 + 공격 응답 비선호 학습</text>
+<rect x="546" y="552" width="450" height="126" rx="16" fill="#fff" stroke="#c8d3e1"/>
+<text x="568" y="584" font-size="16" fill="#52637c">후속 2 · NDSS 2026</text>
+<text x="568" y="618" font-size="25" font-weight="700">Rennervate</text>
+<text x="568" y="650" font-size="18">Attention 특징으로 악성 토큰 탐지·정제</text>
+<text x="44" y="717" font-size="14" fill="#52637c">직접 제작: 최지수 · CC BY 4.0 · 수치 성능이나 단일 팀의 개발 계보를 나타내지 않음</text>
+</g></svg>
