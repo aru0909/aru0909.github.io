@@ -115,7 +115,8 @@
     viewEls.forEach(function (el) {
       var path = el.getAttribute('data-views');
       var url = 'https://' + gc + '.goatcounter.com/counter/' + encodeURIComponent(path) + '.json';
-      if (el.getAttribute('data-range') === 'today') url += '?start=' + today + '&end=' + today;
+      // 오늘 0시부터 지금까지 (end를 같은 날짜로 주면 길이 0인 구간이 되어 항상 0이 나옴)
+      if (el.getAttribute('data-range') === 'today') url += '?start=' + today;
       fetch(url).then(function (r) {
         if (r.status === 404) return { count: '0' };   // 아직 방문 기록이 없는 글
         return r.ok ? r.json() : null;
